@@ -1,4 +1,5 @@
-import { CreateRedemptionRequest, useCreateRedemptionMutation } from "@/services/RewardState"
+
+import { CreateRedemptionRequest } from "@/services/RewardState"
 import { RealtimeChannel } from "ably"
 import { useEffect, useState } from "react"
 import { Button, Form, InputGroup } from "react-bootstrap"
@@ -13,7 +14,7 @@ export const TextToSpeechReward = ({channel}: TextToSpeechRewardProps) => {
     const [pitch, setPitch] = useState<string>("1");
     const [rate, setRate] = useState<string>("1");
     const [volume, setVolume] = useState<string>("1");
-    const { mutate } = useCreateRedemptionMutation()
+    //const { mutate } = useCreateRedemptionMutation()
 
     useEffect(() => {
         const synth = window.speechSynthesis;    

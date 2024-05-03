@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { YoutubeChannel, YoutubeChannelSnippet } from '@/types/YoutubeChannel';
-import { produce } from 'immer';
 import { YoutubeThumbnails } from '@/types/YoutubeThumbnail';
 
 export function useYoutubeChannel (accessToken: string = '', forHandle: string = '', mine: boolean = false) {
-  const [data, setData] = useState({    
+  const [data] = useState({    
       id: "0",
       kind: '',
       snippet: {

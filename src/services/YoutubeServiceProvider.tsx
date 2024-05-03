@@ -1,10 +1,9 @@
 import { YoutubeChannel } from "@/types/YoutubeChannel"
-import { produce} from "immer"
-import { PropsWithChildren, SetStateAction, createContext, useCallback, useContext, useMemo, useState } from "react"
-import { type QueryClient, useQueryClient} from '@tanstack/react-query'
-import { youtubeQueryKeys } from '@/services/queryKeys'
+import { PropsWithChildren, createContext, useCallback, useContext, useMemo, useState } from "react"
+import { useQueryClient} from '@tanstack/react-query'
+
 import { useYoutubeChannel } from "@/hooks/useYoutubeChannel"
-import { getYoutubeChannel } from "./YoutubeApi"
+
 
 export type YoutubeChannelData = {
     forHandle: string,
@@ -19,37 +18,37 @@ const nullContext = {
 type AddYoutubeChannelContext = typeof nullContext
 const AddYoutubeChannelContext = createContext<AddYoutubeChannelContext>(nullContext)
 
-type useYoutubeChannelQueryOptions = {
-    staleTime? : number
-    refetchInterval?: number | false
-    throwOnErrors?: boolean | ((error: Error) => boolean)
-}
+// type useYoutubeChannelQueryOptions = {
+//     staleTime? : number
+//     refetchInterval?: number | false
+//     throwOnErrors?: boolean | ((error: Error) => boolean)
+// }
 
 
 const updateQueryData = (
-    queryClient: QueryClient,
-    forHandle: string,
-    data: YoutubeChannelData | undefined,
-    setData: (_: SetStateAction<YoutubeChannelData | undefined>) => void,
-    youtubeChannel: YoutubeChannel
+    // queryClient: QueryClient,
+    // forHandle: string,
+    // data: YoutubeChannelData | undefined,
+    // setData: (_: SetStateAction<YoutubeChannelData | undefined>) => void,
+    // youtubeChannel: YoutubeChannel
 ) => {
-    const addYoutubeChannelToQueryData = (addYoutubeChannel: YoutubeChannel) => {
-        queryClient.setQueryData<YoutubeChannel>(youtubeQueryKeys.youtubeChannel(forHandle), (stateYoutubeChannel) => {
-            if(!stateYoutubeChannel) return
-            return produce(stateYoutubeChannel, (draft) => {
-                draft = addYoutubeChannel
-            })
-        })
-    }
+    // const addYoutubeChannelToQueryData = (addYoutubeChannel: YoutubeChannel) => {
+    //     queryClient.setQueryData<YoutubeChannel>(youtubeQueryKeys.youtubeChannel(forHandle), (stateYoutubeChannel) => {
+    //         if(!stateYoutubeChannel) return
+    //         return produce(stateYoutubeChannel, (draft) => {
+    //             draft = addYoutubeChannel
+    //         })
+    //     })
+    // }
 
-    const removeYoutubeChannelToQueryData = () => {
-        queryClient.setQueryData<YoutubeChannel>(youtubeQueryKeys.youtubeChannel(forHandle), (stateYoutubeChannel) => {
-            if(!stateYoutubeChannel) return
-            return produce(stateYoutubeChannel, (draft) => {
-                draft = undefined as unknown as YoutubeChannel
-            })
-        })
-    }
+    // const removeYoutubeChannelToQueryData = () => {
+    //     queryClient.setQueryData<YoutubeChannel>(youtubeQueryKeys.youtubeChannel(forHandle), (stateYoutubeChannel) => {
+    //         if(!stateYoutubeChannel) return
+    //         return produce(stateYoutubeChannel, (draft) => {
+    //             draft = undefined as unknown as YoutubeChannel
+    //         })
+    //     })
+    // }
 }
     export type AddYoutubeChannelProviderProps = {
         accessToken: string
@@ -62,7 +61,7 @@ const updateQueryData = (
         mine,
         children,        
     }: PropsWithChildren<AddYoutubeChannelProviderProps>) => {
-        const queryClient = useQueryClient()
+        useQueryClient()
         const {data: youtubeChannel} = useYoutubeChannel(accessToken, forHandle, mine)
         const [data, setData] = useState<YoutubeChannelData | undefined>(undefined)
 
@@ -73,7 +72,8 @@ const updateQueryData = (
         const context: AddYoutubeChannelContext = useMemo(() => ({data, clear}), [data, clear])
 
         if (youtubeChannel !== undefined) {
-            updateQueryData(queryClient, forHandle, data, setData, youtubeChannel)
+            //updateQueryData(queryClient, forHandle, data, setData, youtubeChannel)
+            updateQueryData()
         }
 
         return <AddYoutubeChannelContext.Provider value={context}>{children}</AddYoutubeChannelContext.Provider>

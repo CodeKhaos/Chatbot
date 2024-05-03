@@ -1,7 +1,6 @@
 import { YoutubeChannel } from "@/types/YoutubeChannel"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { getYoutubeChannel } from "./YoutubeApi"
-import { access } from "fs"
 import { produce } from "immer"
 
 
@@ -21,13 +20,13 @@ export const useUpdateYoutubeChannelMutation = () => {
       await queryClient.cancelQueries({ queryKey: ['youtubeChannels', newYoutubeChannel.id] })
   
       // Snapshot the previous value
-      const previousYoutubeChannel = queryClient.getQueryData(['youtubeChannels', newYoutubeChannel.id])
+      queryClient.getQueryData(['youtubeChannels', newYoutubeChannel.id])
   
       // Optimistically update to the new value
       queryClient.setQueryData<YoutubeChannel>(['youtubeChannels', newYoutubeChannel.id], (oldData) => {
           if (!oldData) return
-          return produce(oldData, (draft) => {
-            draft = oldData
+          return produce(oldData, () => {
+            //draft = oldData
           })
       })
     },

@@ -1,16 +1,16 @@
 import { useParams } from "react-router-dom"
-import { Button, Form, InputGroup } from "react-bootstrap"
-import { CreateRedemptionRequest, useCreateRedemptionMutation, useCreateRewardMutation, useRewardListQuery } from "@/services/RewardState";
+import { Button, } from "react-bootstrap"
+import { CreateRedemptionRequest, useRewardListQuery } from "@/services/RewardState";
 import { Reward } from "@/services/RewardApi";
 
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { useChannel } from "ably/react";
 import { TextToSpeechReward } from "@/components/TextToSpeechReward";
 
 
 export const Rewards = () => {
   const params = useParams()
-  const [ttsMessage, setTTSMessage] = useState('')
+  const [ttsMessage] = useState('')
 
   const {data } = useRewardListQuery()
 

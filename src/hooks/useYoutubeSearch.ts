@@ -1,6 +1,5 @@
 import { YoutubeSearch } from '@/types/YoutubeSearch';
 import axios from 'axios';
-import { channel } from 'diagnostics_channel';
 import { useState, useEffect } from 'react';
 
 export function useYoutubeSearch (accessToken: string = '', channelId: string = 'UCjI1wrvGXMB-qhSJjSXYumA', maxResults: number = 1) {

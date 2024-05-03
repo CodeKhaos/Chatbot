@@ -14,7 +14,7 @@ export const RewardRedemption = () => {
   const { mutate } = useCreateRedemptionMutation()
 
   // Create a channel called 'get-started' and subscribe to all messages with the name 'first' using the useChannel hook
-  const channel = useChannel('rewards', 'redemption', (message) => {
+    useChannel('rewards', 'redemption', (message) => {
     console.log(message.data.type + ' - ' + message.data.value)
     if (message.data.type === 'tts') {
         console.log('Message Received - ', message.data)

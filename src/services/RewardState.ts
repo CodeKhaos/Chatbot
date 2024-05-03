@@ -2,11 +2,11 @@ import { redemptionQueryKeys, rewardQueryKeys } from "@/services/queryKeys";
 import {  UseMutationResult, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getRewardsList, createReward, createRedemption, getRedemptionList } from "./RewardApi";
 
-type UseRewardQueryOptions = {
-    staleTime?: number
-    refetchInterval?: number | false
-    throwOnError?: boolean | ((error: Error) => boolean)
-}
+// type UseRewardQueryOptions = {
+//     staleTime?: number
+//     refetchInterval?: number | false
+//     throwOnError?: boolean | ((error: Error) => boolean)
+// }
 export const useRewardListQuery = () => 
     useQuery({
         queryKey: rewardQueryKeys.list(),
