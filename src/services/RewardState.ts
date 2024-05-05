@@ -1,6 +1,6 @@
 import { redemptionQueryKeys, rewardQueryKeys } from "@/services/queryKeys";
-import {  UseMutationResult, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getRewardsList, createReward, createRedemption, getRedemptionList } from "./RewardApi";
+import {  UseMutationResult, useQuery } from "@tanstack/react-query";
+//import { getRewardsList, createReward, createRedemption, getRedemptionList } from "./RewardApi";
 
 // type UseRewardQueryOptions = {
 //     staleTime?: number
@@ -10,13 +10,13 @@ import { getRewardsList, createReward, createRedemption, getRedemptionList } fro
 export const useRewardListQuery = () => 
     useQuery({
         queryKey: rewardQueryKeys.list(),
-        queryFn: getRewardsList,
+        queryFn: () => {},// getRewardsList,
     })
 
     export const useRedemptionListQuery = () => 
         useQuery({
             queryKey: redemptionQueryKeys.list(),
-            queryFn: getRedemptionList,
+            queryFn: () => {},//getRedemptionList,
         })
     
 export type CreateRewardRequest = {
@@ -66,27 +66,27 @@ UseCreateRedemptionMutateVariables,
 unknown>
 
 
-export const useCreateRewardMutation = (): UseCreateRewardMutationResult => {
-    const queryClient = useQueryClient()
+// export const useCreateRewardMutation = (): UseCreateRewardMutationResult => {
+//     const queryClient = useQueryClient()
 
-    return useMutation({
-        mutationFn: (vars: UseCreateRewardMutateVariables) => createReward(vars),
-        onSuccess: (response: CreateRewardResponse) => {            
-            queryClient.setQueryData(rewardQueryKeys.reward(response.id), response)
-            void queryClient.invalidateQueries({queryKey: rewardQueryKeys.list()})
-        }
-    })
-}
+//     return useMutation({
+//         mutationFn: (vars: UseCreateRewardMutateVariables) => createReward(vars),
+//         onSuccess: (response: CreateRewardResponse) => {            
+//             queryClient.setQueryData(rewardQueryKeys.reward(response.id), response)
+//             void queryClient.invalidateQueries({queryKey: rewardQueryKeys.list()})
+//         }
+//     })
+// }
 
 
-export const useCreateRedemptionMutation = (): UseCreateRedemptionMutationResult => {
-    const queryClient = useQueryClient()
+// export const useCreateRedemptionMutation = (): UseCreateRedemptionMutationResult => {
+//     const queryClient = useQueryClient()
 
-    return useMutation({
-        mutationFn: (vars: UseCreateRedemptionMutateVariables) => createRedemption(vars),
-        onSuccess: (response: CreateRedemptionResponse) => {            
-            queryClient.setQueryData(rewardQueryKeys.reward(response.id), response)
-            void queryClient.invalidateQueries({queryKey: rewardQueryKeys.list()})
-        }
-    })
-}
+//     return useMutation({
+//         mutationFn: (vars: UseCreateRedemptionMutateVariables) => createRedemption(vars),
+//         onSuccess: (response: CreateRedemptionResponse) => {            
+//             queryClient.setQueryData(rewardQueryKeys.reward(response.id), response)
+//             void queryClient.invalidateQueries({queryKey: rewardQueryKeys.list()})
+//         }
+//     })
+// }
