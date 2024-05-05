@@ -25,4 +25,10 @@ app.get('/', (req, res) => {
   res.json({ message: 'Hello from Express on AWS Lambda!' });
 });
 
+
+app.get('/ablyAuth', (req, res) => {
+  res.json({ message: 'Hello from Express on AWS Lambda!' });
+});
+
+
 export default app;
