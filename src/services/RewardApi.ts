@@ -1,5 +1,5 @@
 import { CreateRedemptionRequest, CreateRedemptionResponse, CreateRewardRequest, CreateRewardResponse } from "./RewardState";
-import server from "@/../server/api/serverApi";
+import server from '@/../server/server.js'
 
 export type Reward = {
     id: string,

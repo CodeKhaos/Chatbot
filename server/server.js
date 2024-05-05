@@ -1,8 +1,8 @@
 import express from 'express'
 import cors from 'cors'
-import rewards from './server/routes/rewards.js'
-import redemptions from './server/routes/redemptions.js'
-import ably from './server/routes/ably.js'
+import rewards from './src/server/routes/rewards.js'
+import redemptions from './src/server/routes/redemptions.js'
+import ably from './src/server/routes/ably.js'
 
 const serverless = require('serverless-http');
 import dotenv from 'dotenv'
