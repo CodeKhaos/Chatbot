@@ -40,7 +40,6 @@
     "react-router-dom": "^6.23.0",
     "react-use-websocket": "^3.0.0",
     "react-youtube": "^10.1.0",
-    "serverless-http": "^3.2.0",
     "vitest": "^1.5.2",
     "vitest-fail-on-console": "^0.6.3",
     "ws": "^8.17.0"

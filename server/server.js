@@ -24,4 +24,4 @@ app.get('/', (req, res) => {
   res.json({ message: 'Hello from Express on AWS Lambda!' });
 });
 
-module.exports.handler = serverless(app);
+export default app;
