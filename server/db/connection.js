@@ -1,6 +1,6 @@
 import {MongoClient, ServerApiVersion } from 'mongodb'
 
-const uri = process.env.REACT_APP_ATLAS_URI || ""; 
+const uri = "mongodb+srv://admin:GLqTPGB4oJ9Hldk7@chatbot.v7qjgwk.mongodb.net/?retryWrites=true&w=majority"; 
  const client = new MongoClient(uri, {
    serverApi: {
      version: ServerApiVersion.v1,

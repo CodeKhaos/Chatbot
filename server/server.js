@@ -7,7 +7,7 @@ import ably from '../server/routes/ably.js'
 import dotenv from 'dotenv'
 const app = express(); 
 dotenv.config()
-const port = process.env.REACT_APP_PORT || 5050;
+const port =  5050;
 
 app.use(cors());
 app.use(express.json());
