@@ -1,7 +1,7 @@
 import { Button, Container, Form, InputGroup, Nav, Navbar } from 'react-bootstrap'
 import './App.css'
 import { NavLink, createBrowserRouter, useNavigate, useRouteError, RouterProvider, Outlet } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import LogoImg from '@/assets/gk-logo.png'
 import {  useGoogleLogin, TokenResponse } from '@react-oauth/google'
 import { YoutubeChannel } from './types/YoutubeChannel'
@@ -9,12 +9,6 @@ import { AddYoutubeChannelProvider } from './services/YoutubeServiceProvider'
 import { useUpdateYoutubeChannelMutation } from './services/youtubeState'
 import { Rewards } from './pages/Rewards'
 import { RewardRedemption } from './pages/RewardRedemption'
-
-import * as Ably from 'ably';
-import { AblyProvider, ChannelProvider } from 'ably/react';import {
-  GetSecretValueCommand,
-  SecretsManagerClient,
-} from "@aws-sdk/client-secrets-manager";
 
 export function RootErrorBoundary() {
   const error = useRouteError() as Error
@@ -124,40 +118,10 @@ const router = createBrowserRouter([
   },
 ])
 
-
-  
 export function App() {
-  const [ablyKey, setAblyKey] = useState<string>()
-  const getSecretValue = async (secretName = "ABLY_KEY") => {
-    const client = new SecretsManagerClient();
-    const response = await client.send(
-      new GetSecretValueCommand({
-        SecretId: secretName,
-      }),
-    );
-    console.log(response);
-  
-    if (response.SecretString) {
-      setAblyKey(response.SecretString);
-
-    }
-  
-    if (response.SecretBinary) {
-      return response.SecretBinary;
-    }
-  };
-  
-  useEffect(() => {
-    getSecretValue()
-  }, [])
-  
-  const ablyClient = new Ably.Realtime({ key: ablyKey });
   return (
     <div className="App">
-      <AblyProvider client={ablyClient}> 
-          <ChannelProvider channelName="rewards">
-        <RouterProvider router={router} /></ChannelProvider>
-      </AblyProvider>
+      <RouterProvider router={router} />
     </div>
   )
 }

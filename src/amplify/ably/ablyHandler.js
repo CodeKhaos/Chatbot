@@ -4,8 +4,6 @@ import Ably from "ably";
 // We use it to define our routes.
 // The router will be added as a middleware and will take control of requests starting with path /redemption.
 
-const rest = new Ably.Rest(process.env.REACT_APP_ABLY_REALTIME_KEY);
-
 const callback = (err, tokenRequest) => {
   if (err) {
     res.status(500).send("Error requesting token: " + JSON.stringify(err));
