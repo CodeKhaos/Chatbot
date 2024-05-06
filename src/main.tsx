@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import { App } from './App'
 
@@ -42,7 +42,9 @@ const [ablyKey, setAblyKey] = useState<string>()
     }
   };
   
-
+useEffect(() => {
+  getSecretValue()
+}, [])
 const googleOAuthClientId = '1015986740737-bnii3vuh7eond8v9uj5fg3le18gs9i6r.apps.googleusercontent.com'
 
 const ablyClient = new Ably.Realtime({ key: ablyKey });
