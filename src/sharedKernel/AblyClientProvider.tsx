@@ -29,7 +29,7 @@ export const AblyClientProvider = (props: any) => {
         getSecretValue('ABLY_KEY')
         console.log("got key", ablyKey)
     }, [])
-
+console.log(process.env.REACT_APP_ABLY_REALTIME_KEY)
     const ablyClient = new Ably.Realtime({ key: ablyKey });
         console.log("client", ablyClient)
     return (
