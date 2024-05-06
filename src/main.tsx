@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { App } from './App'
 
-import { secret } from '@aws-amplify/backend';
 import './index.css'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -44,7 +43,7 @@ const queryClient = new QueryClient({
 
 const googleOAuthClientId = '1015986740737-bnii3vuh7eond8v9uj5fg3le18gs9i6r.apps.googleusercontent.com'
 
-const ablyClient = new Ably.Realtime({ key: await getSecretValue().toString() });
+const ablyClient = new Ably.Realtime({ key: getSecretValue().toString() });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <GoogleOAuthProvider clientId={googleOAuthClientId}>
