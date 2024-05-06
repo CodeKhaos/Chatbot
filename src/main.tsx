@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import { App } from './App'
 
@@ -21,6 +21,7 @@ const queryClient = new QueryClient({
     }
   }
 })
+const [ablyKey, setAblyKey] = useState<string>()
 
   const getSecretValue = async (secretName = "ABLY_KEY") => {
     const client = new SecretsManagerClient();
@@ -32,7 +33,8 @@ const queryClient = new QueryClient({
     console.log(response);
   
     if (response.SecretString) {
-      return response.SecretString;
+      setAblyKey(response.SecretString);
+
     }
   
     if (response.SecretBinary) {
@@ -43,7 +45,7 @@ const queryClient = new QueryClient({
 
 const googleOAuthClientId = '1015986740737-bnii3vuh7eond8v9uj5fg3le18gs9i6r.apps.googleusercontent.com'
 
-const ablyClient = new Ably.Realtime({ key: getSecretValue().toString() });
+const ablyClient = new Ably.Realtime({ key: ablyKey });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <GoogleOAuthProvider clientId={googleOAuthClientId}>
