@@ -9,7 +9,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import * as Ably from 'ably';
 import { AblyProvider, ChannelProvider } from 'ably/react';
-require('dotenv').config()
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const queryClient = new QueryClient({
   defaultOptions: {
