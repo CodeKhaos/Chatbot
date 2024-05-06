@@ -7,8 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import * as Ably from 'ably';
-import { AblyProvider, ChannelProvider } from 'ably/react';
+import {  ChannelProvider } from 'ably/react';
 import { AblyClientProvider } from './sharedKernel/AblyClientProvider';
 //require('dotenv').config()
 
