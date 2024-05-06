@@ -20,7 +20,7 @@ const queryClient = new QueryClient({
 
 const googleOAuthClientId = '1015986740737-bnii3vuh7eond8v9uj5fg3le18gs9i6r.apps.googleusercontent.com'
 
-const ablyClient = new Ably.Realtime({ authUrl: 'http://localhost:5050/ably/auth' });
+const ablyClient = new Ably.Realtime({ authUrl: '/ably/auth' });
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <GoogleOAuthProvider clientId={googleOAuthClientId}>
     <AblyProvider client={ablyClient}> 
