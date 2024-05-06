@@ -7,7 +7,7 @@ import Ably from 'ably'
 const api = express();
 
 const router = Router();
-console.log('key : ',Netlify.env.get('REACT_APP_ABLY_REALTIME_KEY')  )
+console.log('key : ', Netlify.env.get('REACT_APP_ABLY_REALTIME_KEY')  )
 const rest = new Ably.Rest(Netlify.env.get('REACT_APP_ABLY_REALTIME_KEY') ?? '');
 
 router.get("/auth", async (req, res) => {
