@@ -2,11 +2,7 @@
   "name": "chatbot",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
-  "engines": {
-    "node": "18.x"
-  },
-  "scripts": {
+  "type": "module",  "scripts": {
     "dev": "vite --port 5174",
     "compile": "tsc",
     "format": "prettier --check src test",
