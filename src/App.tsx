@@ -80,10 +80,12 @@ export const Home = () => {
    const [forHandle, setForHandle] = useState('GoodKhaos')
    const navigate = useNavigate()
   
-  const handleSubmit = () => {
+  const handleRewardsSubmit = () => {
     navigate('/rewards/' + forHandle)
   }
-
+  const handleRedemptionSubmit = () => {
+    navigate('/rewardHandler/' + forHandle)
+  }
 
   return (
     <div role="homepage">
@@ -97,7 +99,8 @@ export const Home = () => {
                 placeholder='Channel Handle'
                 onChange={(e) => setForHandle(e.target.value)}
             />
-            <Button role="findChannelButton" data-bs-theme="dark" onClick={handleSubmit}>Find</Button>
+            <Button role="findChannelRewardsButton" data-bs-theme="dark" onClick={handleRewardsSubmit}>Rewards</Button>
+            <Button role="findChannelRedemptionsButton" data-bs-theme="dark" onClick={handleRedemptionSubmit}>Redemptions</Button>
         </InputGroup>
 
       </Container>
