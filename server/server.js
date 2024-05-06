@@ -1,11 +1,11 @@
-import express from 'express'
-import cors from 'cors'
-import rewards from '../server/routes/rewards.js'
-import redemptions from '../server/routes/redemptions.js'
-import ably from '../server/routes/ably.js'
-
-import dotenv from 'dotenv'
+const express = require('express')
+const cors  = require( 'cors')
+const rewards  = require( '../server/routes/rewards.js')
+const redemptions  = require( '../server/routes/redemptions.js')
+const ably  = require( '../server/routes/ably.js')
+const dotenv  = require( 'dotenv')
 const app = express(); 
+
 dotenv.config()
 const port = process.env.REACT_APP_PORT || 5050;
 

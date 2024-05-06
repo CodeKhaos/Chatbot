@@ -14,7 +14,7 @@
     "lint": "eslint src test --ext .ts,.tsx",
     "lint:fix": "npm run-script lint -- --fix",
     "preview": "vite preview",
-    "start": "node --env-file=./.env ./server/server.js"
+    "start": "node ./server/server.js"
   },
   "dependencies": {
     "@aws-amplify/backend": "^1.0.0",
