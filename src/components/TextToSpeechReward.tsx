@@ -5,22 +5,25 @@ import { useEffect, useState } from "react"
 import { Button, Form, InputGroup } from "react-bootstrap"
 import { handlePlay } from "./TextToSpeech"
 
+import Countdown from 'react-countdown';
 type TextToSpeechRewardProps = {
     channel: RealtimeChannel
 }
+        const synth = window.speechSynthesis;   
 export const TextToSpeechReward = ({channel}: TextToSpeechRewardProps) => {
     const [ttsMessage, setTTSMessage] = useState<string>()
+    const [voices, setVoices] = useState<SpeechSynthesisVoice[]>();
     const [voice, setVoice] = useState<string>("Microsoft David - English (United States)");
     const [pitch, setPitch] = useState<string>("1");
     const [rate, setRate] = useState<string>("1");
     const [volume, setVolume] = useState<string>("1");
     //const { mutate } = useCreateRedemptionMutation()
+    const [btnDisabled, setBtnDisabled] = useState<boolean>(false)
+    const [redemptionTime, setRedemptionTime] = useState<number>(0)
 
-    useEffect(() => {
-        const synth = window.speechSynthesis;    
-        synth.getVoices();
+    useEffect(() => { 
+        setVoices(synth.getVoices());
     }, [])
-    
 
     const sendTTSMessage = () => {
         if (!ttsMessage) return
@@ -29,12 +32,25 @@ export const TextToSpeechReward = ({channel}: TextToSpeechRewardProps) => {
         }
         console.log('Sending Message - ', {...reward, voice: voice, pitch: pitch, rate: rate, volume: volume})
         channel.publish('redemption', {...reward, voice: voice, pitch: pitch, rate: rate, volume: volume})
+        
+        setBtnDisabled(true)
+        setRedemptionTime(10)
+        setTimeout(() => {
+            setBtnDisabled(false)
+            setRedemptionTime(0)
+          }, 10000);
     }
 
       const testTTSMessage = () => {
         if (!ttsMessage) return
                    
         handlePlay(ttsMessage, voice, pitch, rate, volume)
+        setBtnDisabled(true)
+        setRedemptionTime(10)
+        setTimeout(() => {
+            setBtnDisabled(false)
+            setRedemptionTime(0)
+          }, 10000);
       }
 
         const voiceChanged = (newVoice:string) => {       
@@ -45,6 +61,7 @@ export const TextToSpeechReward = ({channel}: TextToSpeechRewardProps) => {
         }
     return (
         <InputGroup className="formControlFindChannel">
+        <div>
             <Form.Control
                 role="formControlTTSMessage"
                 aria-label="TTS Message"
@@ -53,7 +70,6 @@ export const TextToSpeechReward = ({channel}: TextToSpeechRewardProps) => {
                 onChange={(e) => setTTSMessage(e.target.value)}
                 as='textarea'
             />
-
             <Form.Label>Voice Pitch</Form.Label>
             <Form.Range min={'0.5'} max={'2.0'} step={'0.1'}
                 onChange={(e) => setPitch(e.target.value)}/>
@@ -61,18 +77,23 @@ export const TextToSpeechReward = ({channel}: TextToSpeechRewardProps) => {
             <Form.Range min={'0.5'} max={'2.0'} step={'0.1'}
                 onChange={(e) => setRate(e.target.value)}/>
             <Form.Label>Voice Volume</Form.Label>
-            <Form.Range min={'0.2'} max={'1.0'} step={'0.1'}
+            <Form.Range  min={'0.2'} max={'1.0'} step={'0.1'}
                 onChange={(e) => setVolume(e.target.value)}/>
-            <Form.Select aria-label="Set Voice" 
+            <Form.Select aria-label="Set Voice" className="primarySelect"
                 onChange={(e) => voiceChanged(e.target.value)}>
-                    {window.speechSynthesis.getVoices().map((voice) => (
+                    {voices && voices.map((voice) => (
                         <option key={voice.name} value={voice.name}>
                             {voice.name}
                         </option>
                     ))}
             </Form.Select>
-            <Button role="sendTTSMessage" onClick={sendTTSMessage}>Redeem TTS Message</Button>
-            <Button role="testTTSMessage" onClick={testTTSMessage}>Test TTS</Button>
+            
+            <Button className="primaryButton" role="sendTTSMessage" disabled={btnDisabled} onClick={sendTTSMessage}>
+                Redeem TTS  {btnDisabled &&  <Countdown date={Date.now() + redemptionTime * 1000 } precision={3} intervalDelay={1000} renderer={props => <span>({props.seconds})</span>}/> }            
+            </Button>
+            <Button className="primaryButton" role="testTTSMessage" onClick={testTTSMessage}>Test TTS</Button>
+       
+            </div>
         </InputGroup>
     )
 }

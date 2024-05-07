@@ -41,3 +41,16 @@
 .read-the-docs {
   color: #888;
 }
+.formControlFindChannel {
+  margin: auto;
+  width: 50% !important;
+  padding: 10px;
+}
+
+.input-group {
+  width: 100%;
+}
+
+.primaryButton {
+  margin: 0.25em;
+}
