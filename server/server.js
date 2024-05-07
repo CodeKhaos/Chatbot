@@ -1,23 +1,23 @@
-import express, {Router} from 'express'
-//import cors from 'cors'
-import rewards from '../server/routes/rewards.js'
-import redemptions from '../server/routes/redemptions.js'
-import ably from '../server/routes/ably.js'
+// import express, {Router} from 'express'
+// //import cors from 'cors'
+// import rewards from '../server/routes/rewards.js'
+// import redemptions from '../server/routes/redemptions.js'
+// import ably from '../server/routes/ably.js'
 
-import serverless from "serverless-http";
+// import serverless from "serverless-http";
 
-const api = express(); 
+// const api = express(); 
 
 
-//api.use(cors());
-const router = Router();
+// //api.use(cors());
+// const router = Router();
 
-router.get("/hello", (req, res) => res.send("Hello World!"));
+// router.get("/hello", (req, res) => res.send("Hello World!"));
 
-router.use("/rewards", rewards);
-router.use("/redemptions", redemptions);
-router.use("/ably", ably);
+// router.use("/rewards", rewards);
+// router.use("/redemptions", redemptions);
+// router.use("/ably", ably);
 
-api.use("/api/", router);
+// api.use("/api/", router);
 
-export default handler = serverless(api);
+// export default handler = serverless(api);

@@ -1,6 +1,6 @@
 import {MongoClient, ServerApiVersion } from 'mongodb'
 
-const uri = "mongodb+srv://admin:GLqTPGB4oJ9Hldk7@chatbot.v7qjgwk.mongodb.net/?retryWrites=true&w=majority"; 
+const uri = Netlify.env.get('REACT_APP_ATLAS_URI') ?? ''
  const client = new MongoClient(uri, {
    serverApi: {
      version: ServerApiVersion.v1,
