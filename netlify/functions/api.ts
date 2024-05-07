@@ -2,7 +2,6 @@
 
 import express, { Router } from "express";
 import serverless from "serverless-http";
-import Ably from 'ably'
 
 const api = express();
 

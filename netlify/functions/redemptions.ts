@@ -1,18 +1,26 @@
-import express from "express"
+import express, { Router } from "express"
+import serverless from "serverless-http";
 
 // This will help us connect to the database
-import db from '../db/connection.js'
 
 // This help convert the id from string to ObjectId for the _id.
-import { ObjectId } from "mongodb"
+import { MongoClient, ObjectId } from "mongodb"
 
+const mongoClient = new MongoClient(Netlify.env.get('REACT_APP_ATLAS_URI') ?? '');
+
+const clientPromise = mongoClient.connect();
 // router is an instance of the express router.
 // We use it to define our routes.
 // The router will be added as a middleware and will take control of requests starting with path /reward.
-const router = express.Router();
+
+const api = express();
+
+const router = Router();
+
 
 // This section will help you get a list of all the reward.
 router.get("/", async (req, res) => {
+  const db= (await clientPromise).db(process.env.MONGODB_DATABASE); 
   let collection = await db.collection("rewards");
   let results = await collection.find({}).toArray();
   res.send(results).status(200);
@@ -20,6 +28,7 @@ router.get("/", async (req, res) => {
 
 // This section will help you get a single reward by id
 router.get("/:id", async (req, res) => {
+  const db= (await clientPromise).db(process.env.MONGODB_DATABASE); 
   let collection = await db.collection("rewards");
   let query = { _id: new ObjectId(req.params.id) };
   let result = await collection.findOne(query);
@@ -36,6 +45,7 @@ router.post("/", async (req, res) => {
       name: req.body.name,
       description: req.body.description,
     };
+    const db= (await clientPromise).db(process.env.MONGODB_DATABASE); 
     let collection = await db.collection("rewards");
     let result = await collection.insertOne(newDocument);
     res.send(result).status(204);
@@ -57,6 +67,7 @@ router.patch("/:id", async (req, res) => {
       },
     };
 
+    const db= (await clientPromise).db(process.env.MONGODB_DATABASE); 
     let collection = await db.collection("rewards");
     let result = await collection.updateOne(query, updates);
     res.send(result).status(200);
@@ -71,6 +82,7 @@ router.delete("/:id", async (req, res) => {
   try {
     const query = { _id: new ObjectId(req.params.id) };
 
+    const db= (await clientPromise).db(process.env.MONGODB_DATABASE); 
     const collection = db.collection("rewards");
     let result = await collection.deleteOne(query);
 
@@ -81,4 +93,6 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-export default router;
+api.use("/redemptions/", router);
+
+export const handler = serverless(api);

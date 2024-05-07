@@ -35,6 +35,4 @@ router.get("/auth", async (req, res) => {
 
 api.use("/ably/", router);
 
-export default router;
-
 export const handler = serverless(api);

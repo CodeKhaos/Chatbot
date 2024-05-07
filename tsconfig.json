@@ -31,6 +31,6 @@
               "prettierrc",
               "src/**/*",
               "test/**/*"              
-, "netlify/db", "server/routes", "server/server.js", "server/api"          ],
+, "netlify/db", "server/routes", "server/server.js", "server/api", "netlify/functions/connection.ts"          ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

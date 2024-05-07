@@ -1,13 +1,27 @@
 [functions]
-  external_node_modules = ["express"]
+  external_node_modules = ["express", "mongodb"]
   node_bundler = "esbuild"
+
 [[redirects]]
   force = true
   from = "/api/*"
   status = 200
   to = "/.netlify/functions/api/:splat"
+
 [[redirects]]
   force = true
   from = "/ably/*"
   status = 200
   to = "/.netlify/functions/ably/:splat"
+
+[[redirects]]
+  force = true
+  from = "/redemptions/*"
+  status = 200
+  to = "/.netlify/functions/redemptions/:splat"
+
+[[redirects]]
+  force = true
+  from = "/rewards/*"
+  status = 200
+  to = "/.netlify/functions/rewards/:splat"
