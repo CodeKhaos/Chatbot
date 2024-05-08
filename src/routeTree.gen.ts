@@ -12,7 +12,7 @@
 
 import { Route as rootRoute } from '../server/routes/__root'
 import { Route as RewardsImport } from '../server/routes/rewards'
-import { Route as RedemptionsImport } from '../server/routes/redemptions'
+import { Route as RedemptionsImport } from '../server/routes/rewardRedemptions'
 import { Route as AblyImport } from '../server/routes/ably'
 
 // Create/Update Routes
@@ -23,7 +23,7 @@ const RewardsRoute = RewardsImport.update({
 } as any)
 
 const RedemptionsRoute = RedemptionsImport.update({
-  path: '/redemptions',
+  path: '/rewardRedemptions',
   getParentRoute: () => rootRoute,
 } as any)
 

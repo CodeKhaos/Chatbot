@@ -5,17 +5,16 @@ import { TextToSpeechReward } from "@/components/TextToSpeechReward";
 
 
 export const Rewards = () => {
-  const params = useParams()
+    const params = useParams()
 
-   // Create a channel called 'get-started' and subscribe to all messages with the name 'first' using the useChannel hook
-   const { channel } = useChannel('rewards', 'redemption', (message) => {
-      console.log('useChannel Callback -', message)
-    });
+    const channelName = 'redemption' + (params.forHandle ? '-' + params.forHandle : '')
+
+    const { channel } = useChannel('rewards', channelName, (message) => {})
 
     return (
         <>
-            <h1>Rewards for {params.forHandle}</h1>
-                <TextToSpeechReward channel={channel}></TextToSpeechReward>
+            <h1 role='rewardsHeader' className='pageHeader'>Rewards for {params.forHandle}</h1>
+            <TextToSpeechReward channel={channel} forHandle={params.forHandle ? params.forHandle : ''}></TextToSpeechReward>
         </>
     )
 }

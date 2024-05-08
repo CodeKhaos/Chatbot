@@ -8,7 +8,8 @@ import { YoutubeChannel } from './types/YoutubeChannel'
 import { AddYoutubeChannelProvider } from './services/YoutubeServiceProvider'
 import { useUpdateYoutubeChannelMutation } from './services/youtubeState'
 import { Rewards } from './pages/Rewards'
-import { RewardRedemption } from './pages/RewardRedemption'
+import { RewardRedemptionList } from './pages/RewardRedemptionList'
+import { Redemptions } from './pages/Redemptions'
 
 export function RootErrorBoundary() {
   const error = useRouteError() as Error
@@ -77,13 +78,15 @@ export const PagenotFound = () => (
   )
 }
 export const Home = () => {
-   const [forHandle, setForHandle] = useState('GoodKhaos')
+   const [forHandle, setForHandle] = useState('')
    const navigate = useNavigate()
   
   const handleRewardsSubmit = () => {
+    if (forHandle === '') return
     navigate('/rewards/' + forHandle)
   }
   const handleRedemptionSubmit = () => {
+    if (forHandle === '') return
     navigate('/rewardHandler/' + forHandle)
   }
 
@@ -97,6 +100,7 @@ export const Home = () => {
                 aria-label="Example text with button addon"
                 aria-describedby="basic-addon1"
                 placeholder='Channel Handle'
+                value={forHandle}
                 onChange={(e) => setForHandle(e.target.value)}
             />
             <Button role="findChannelRewardsButton" data-bs-theme="dark" onClick={handleRewardsSubmit}>Rewards</Button>
@@ -116,9 +120,11 @@ const router = createBrowserRouter([
       children: [
         {index: true, element: <Home />},
         {path: 'rewards/:forHandle', element: <Rewards />},
-        {path: 'rewardHandler/:forHandle', element: <RewardRedemption />}
+        {path: 'rewardHandler/:forHandle', element: <RewardRedemptionList />},
+        {path: 'redemptions/:forHandle', element: <Redemptions />}
       ],
   },
+  
 ])
 
 export function App() {

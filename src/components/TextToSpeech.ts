@@ -1,4 +1,4 @@
-export const handlePlay = (text: string, voice: string, pitch: string, rate: string, volume: string) => {
+export const handlePlay = (text: string, voice: string, pitch: string, rate: string, volume: string): boolean => {
   const synth = window.speechSynthesis;
 
   const u = new SpeechSynthesisUtterance(text);
@@ -10,5 +10,6 @@ export const handlePlay = (text: string, voice: string, pitch: string, rate: str
   u.pitch = parseFloat((pitch || pitch !== '') ? pitch : "1")
   u.rate = parseFloat((rate || rate !== '') ? rate : "1")
   u.volume = parseFloat((volume || volume !== '') ? volume : "1")
-  synth.speak(u);
+  synth.speak(u); 
 };
+

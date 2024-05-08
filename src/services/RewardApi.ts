@@ -29,11 +29,11 @@ export const getRewards = async (): Promise<Reward> => {
          return data
  }
  export const getRedemptionList = async (): Promise<GetRedemptionListResponse> => {
- const res = (await server.get('/redemptions')).data
+ const res = (await server.get('/rewardRedemptions')).data
  return res satisfies GetRedemptionListResponse as GetRedemptionListResponse
  }
  export const createRedemption = async (request: CreateRedemptionRequest): Promise<CreateRedemptionResponse> => {
-     const data = (await server.post('/redemptions', request))
+     const data = (await server.post('/rewardRedemptions', request))
          .data satisfies CreateRedemptionResponse as CreateRedemptionResponse
          return data
  }

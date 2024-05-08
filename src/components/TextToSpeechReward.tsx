@@ -1,23 +1,24 @@
 
-import { CreateRedemptionRequest } from "@/services/RewardState"
+import { CreateRedemptionRequest, useCreateRedemptionMutation } from "@/services/RewardState"
 import { RealtimeChannel } from "ably"
 import { useEffect, useState } from "react"
 import { Button, Form, InputGroup } from "react-bootstrap"
 import { handlePlay } from "./TextToSpeech"
 
 import Countdown from 'react-countdown';
-type TextToSpeechRewardProps = {
+export type TextToSpeechRewardProps = {
     channel: RealtimeChannel
+    forHandle: string
 }
-        const synth = window.speechSynthesis;   
-export const TextToSpeechReward = ({channel}: TextToSpeechRewardProps) => {
+    const synth = window.speechSynthesis;   
+export const TextToSpeechReward = ({channel, forHandle}: TextToSpeechRewardProps) => {
     const [ttsMessage, setTTSMessage] = useState<string>()
     const [voices, setVoices] = useState<SpeechSynthesisVoice[]>();
     const [voice, setVoice] = useState<string>("Microsoft David - English (United States)");
     const [pitch, setPitch] = useState<string>("1");
     const [rate, setRate] = useState<string>("1");
     const [volume, setVolume] = useState<string>("1");
-    //const { mutate } = useCreateRedemptionMutation()
+    const { mutate } = useCreateRedemptionMutation()
     const [btnDisabled, setBtnDisabled] = useState<boolean>(false)
     const [redemptionTime, setRedemptionTime] = useState<number>(0)
 
@@ -30,16 +31,25 @@ export const TextToSpeechReward = ({channel}: TextToSpeechRewardProps) => {
         const reward: CreateRedemptionRequest = {
             userId: '', rewardId: "1",  pointCost: 25, redemptionDate: new Date(), type: 'tts', value: ttsMessage 
         }
-        console.log('Sending Message - ', {...reward, voice: voice, pitch: pitch, rate: rate, volume: volume})
-        channel.publish('redemption', {...reward, voice: voice, pitch: pitch, rate: rate, volume: volume})
-        
+        const rewardTTS =  {...reward, voice: voice, pitch: pitch, rate: rate, volume: volume}
+        console.log('Sending Message - ', rewardTTS)
+        channel.publish('redemption' + '-' + forHandle, rewardTTS)
+        createRedemption(reward)
         setBtnDisabled(true)
         setRedemptionTime(10)
         setTimeout(() => {
             setBtnDisabled(false)
             setRedemptionTime(0)
           }, 10000);
-    }
+    } 
+    
+    const createRedemption = (data: CreateRedemptionRequest) => {
+        mutate(data, {
+          onSuccess: (data: any) => {
+            console.log("Reward Redeemed", data)
+          }
+        })    
+      }
 
       const testTTSMessage = () => {
         if (!ttsMessage) return
