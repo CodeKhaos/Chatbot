@@ -104,7 +104,6 @@ export const Home = () => {
                 onChange={(e) => setForHandle(e.target.value)}
             />
             <Button role="findChannelRewardsButton" data-bs-theme="dark" onClick={handleRewardsSubmit}>Rewards</Button>
-            <Button role="findChannelRedemptionsButton" data-bs-theme="dark" onClick={handleRedemptionSubmit}>Redemptions</Button>
         </InputGroup>
 
       </Container>
@@ -123,8 +122,7 @@ const router = createBrowserRouter([
         {path: 'rewardHandler/:forHandle', element: <RewardRedemptionList />},
       ],
   },
-  {path: 'redemptions/:forHandle', element: <Redemptions />}
-  
+  {path: 'redemptions/:forHandle', element: <Redemptions />}  
 ])
 
 export function App() {

@@ -32,17 +32,6 @@ describe('test for home page', () => {
         await userEvent.click(btn)
         expect(mockNavigate).not.toHaveBeenCalled()
     })
-    
-    it('click redemption button does not redirects', async () => {
-        const mockNavigate = vi.fn()
-        vi.mocked(useNavigate).mockReturnValue(mockNavigate)
-
-        render(<Home />)
-
-        const btn = await screen.findByRole('findChannelRedemptionsButton')
-        await userEvent.click(btn)
-        expect(mockNavigate).not.toHaveBeenCalled()
-    })
 
     it('click rewards button redirects', async () => {
         const mockNavigate = vi.fn()
@@ -58,23 +47,5 @@ describe('test for home page', () => {
         const btn = screen.getByRole('findChannelRewardsButton')
         await userEvent.click(btn)
         expect(mockNavigate).toHaveBeenCalledWith('/rewards/' + channel)
-    })
-
-    
-
-    it('click redemption button redirects', async () => {
-        const mockNavigate = vi.fn()
-        vi.mocked(useNavigate).mockReturnValue(mockNavigate)
-
-        render(<Home />)
-
-        const channel = 'Channel'
-
-        const input = await screen.findByRole('formControlFindChannel')
-        await userEvent.type(input, channel)
-        
-        const btn = screen.getByRole('findChannelRedemptionsButton')
-        await userEvent.click(btn)
-        expect(mockNavigate).toHaveBeenCalledWith('/rewardHandler/' + channel)
     })
 })
