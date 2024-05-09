@@ -2,14 +2,19 @@ import { useParams } from "react-router-dom"
 
 import { useChannel } from "ably/react";
 import { handlePlay } from "@/components/TextToSpeech";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { rewardTTS } from "@/types/rewardTTS";
+
+import '@/Redemptions.css'
 
 export const Redemptions = () => {  
   const params = useParams()
   const [message, setMessage] = useState<rewardTTS>()
   const [isSpeaking, setIsSpeaking] = useState<boolean>(false)
 
+  useEffect(() => {    
+    document.getElementsByTagName("html")[0]!.className = "redemption"
+  })
   const channelName = 'redemption' + (params.forHandle ? '-' + params.forHandle : '')
   useChannel('rewards', channelName, (message) => {
     if (message.data.type === 'tts') {
@@ -20,7 +25,9 @@ export const Redemptions = () => {
         handlePlay(message.data.value, message.data.voice, message.data.pitch, message.data.rate, message.data.volume)    
         setTimeout(() => {
           console.log("Timeout")
-          setIsSpeaking(false)}, 5000)
+          setIsSpeaking(false)          
+          document.getElementById("root")!.className = ""
+        }, 5000)
     }
   });
 
@@ -28,12 +35,10 @@ export const Redemptions = () => {
     return (
         <>
         {isSpeaking && 
-                  <div>
-                    <h1>Rewards Redeemed for {params.forHandle}</h1>
-                    <h3>by: {message!.userId}</h3> 
-                    <span>{message!.value}</span>
-                  </div>
-}
+          <div className={'redemptionBackground'}>
+            <h1>From: {message!.userId}</h1> 
+            <h3 className={'redemptionText'}>{message!.value}</h3>
+          </div>}
         </>
     )
 }
