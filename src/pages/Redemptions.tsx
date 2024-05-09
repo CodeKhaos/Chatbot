@@ -12,7 +12,6 @@ export const Redemptions = () => {
 
   const channelName = 'redemption' + (params.forHandle ? '-' + params.forHandle : '')
   useChannel('rewards', channelName, (message) => {
-    console.log(message.data.type + ' - ' + message.data.value)
     if (message.data.type === 'tts') {
         console.log('Message Received - ', message.data)
         setMessage(message.data)
