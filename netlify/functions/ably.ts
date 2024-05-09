@@ -1,14 +1,12 @@
 // YOUR_BASE_DIRECTORY/netlify/functions/api.ts
-
 import express, { Router } from "express";
 import serverless from "serverless-http";
 import Ably from 'ably'
-
 const api = express();
 
 const router = Router();
 
-const rest = new Ably.Rest(Netlify.env.get('REACT_APP_ABLY_REALTIME_KEY') ?? '');
+const rest = new Ably.Rest(process.env.REACT_APP_ABLY_REALTIME_KEY ?? '');
 
 router.get("/auth", async (req, res) => {
     const callback = (err, tokenRequest) => {
@@ -25,7 +23,7 @@ router.get("/auth", async (req, res) => {
     const tokenParams = {
         clientId: "Chatbot",
     };
-    const authOptions = { key: Netlify.env.get('REACT_APP_ABLY_REALTIME_KEY') ?? '', authCallback: callback }
+    const authOptions = { key: process.env.REACT_APP_ABLY_REALTIME_KEY ?? '', authCallback: callback }
     const token =  await rest.auth.createTokenRequest(tokenParams, authOptions);
     res.setHeader("Content-Type", "application/json");
     res.send(JSON.stringify(token));

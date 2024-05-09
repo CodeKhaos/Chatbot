@@ -2,19 +2,17 @@
   external_node_modules = ["express", "mongodb"]
   node_bundler = "esbuild"
 
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
 
 [[redirects]]
-from = "/api/*"
-to = "/.netlify/functions/api/:splat"
-status = 200
+  from = "/ably/*"
+  to = "/.netlify/functions/ably/:splat"
+  status = 200
 
 [[redirects]]
-from = "/ably/*"
-to = "/.netlify/functions/ably/:splat"
-status = 200
-
-
-[[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
+  from = "/*"
+  to = "/index.html"
+  status = 200
