@@ -1,4 +1,4 @@
-export const handlePlay = (text: string, voice: string, pitch: string, rate: string, volume: string): boolean => {
+export const handlePlay = (text: string, voice: string, pitch: string, rate: string, volume: string) => {
   const synth = window.speechSynthesis;
 
   const u = new SpeechSynthesisUtterance(text);
