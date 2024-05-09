@@ -15,6 +15,7 @@ export const Redemptions = () => {
   useEffect(() => {    
     document.getElementsByTagName("html")[0]!.className = "redemption"
   })
+
   const channelName = 'redemption' + (params.forHandle ? '-' + params.forHandle : '')
   useChannel('rewards', channelName, (message) => {
     if (message.data.type === 'tts') {
@@ -26,7 +27,6 @@ export const Redemptions = () => {
         setTimeout(() => {
           console.log("Timeout")
           setIsSpeaking(false)          
-          document.getElementById("root")!.className = ""
         }, 5000)
     }
   });
