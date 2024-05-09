@@ -1,6 +1,4 @@
 import { useParams } from "react-router-dom"
-import { useRedemptionListQuery } from "@/services/RewardState"
-import { Redemption } from "@/services/RewardApi"
 import { useChannel } from "ably/react"
 import { handlePlay } from "@/components/TextToSpeech"
 

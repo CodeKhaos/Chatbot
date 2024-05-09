@@ -9,7 +9,7 @@ export const Rewards = () => {
 
     const channelName = 'redemption' + (params.forHandle ? '-' + params.forHandle : '')
 
-    const { channel } = useChannel('rewards', channelName, (message) => {})
+    const { channel } = useChannel('rewards', channelName, () => {})
 
     return (
         <>

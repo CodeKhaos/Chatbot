@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest"
 import { render, screen } from '@testing-library/react'
-import { NavLink, createBrowserRouter, useNavigate, useRouteError, RouterProvider, Outlet } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import userEvent from '@testing-library/user-event'
 import { Home } from "@/App"
