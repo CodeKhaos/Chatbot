@@ -121,9 +121,9 @@ const router = createBrowserRouter([
         {index: true, element: <Home />},
         {path: 'rewards/:forHandle', element: <Rewards />},
         {path: 'rewardHandler/:forHandle', element: <RewardRedemptionList />},
-        {path: 'redemptions/:forHandle', element: <Redemptions />}
       ],
   },
+  {path: 'redemptions/:forHandle', element: <Redemptions />}
   
 ])
 
