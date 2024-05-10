@@ -9,7 +9,6 @@ export type TextToSpeechRewardProps = {
     channel: RealtimeChannel
     forHandle: string
 }
-    const synth = window.speechSynthesis;   
 export const TextToSpeechReward = ({channel, forHandle}: TextToSpeechRewardProps) => {
     const [ttsMessage, setTTSMessage] = useState<string>()
     const [voices, setVoices] = useState<SpeechSynthesisVoice[]>();
@@ -19,6 +18,8 @@ export const TextToSpeechReward = ({channel, forHandle}: TextToSpeechRewardProps
     const [volume, setVolume] = useState<string>("1");
     const { mutate } = useCreateRedemptionMutation()
     const [btnDisabled, setBtnDisabled] = useState<boolean>(false)    
+    
+    const synth = window.speechSynthesis;
 
     useEffect(() => { 
         setVoices(synth.getVoices());
@@ -49,8 +50,19 @@ export const TextToSpeechReward = ({channel, forHandle}: TextToSpeechRewardProps
       }
 
       const testTTSMessage = () => {
-        if (!ttsMessage) return                   
-        handlePlay(ttsMessage, voice, pitch, rate, volume)
+        if (!ttsMessage) return
+
+        const u = new SpeechSynthesisUtterance(ttsMessage);
+        
+        const voices = window.speechSynthesis.getVoices();
+        const synthVoice = voices.find((v) => v.name ===  voice);
+        
+        u.voice = synthVoice ? synthVoice : voices[0]
+        u.pitch = parseFloat(( pitch ||  pitch !== '') ?  pitch : "1")
+        u.rate = parseFloat((rate ||  rate !== '') ?  rate : "1")
+        u.volume = parseFloat(( volume ||  volume !== '') ? volume : "1")
+
+        handlePlay(synth, u)
       }
 
         const voiceChanged = (newVoice:string) => {       

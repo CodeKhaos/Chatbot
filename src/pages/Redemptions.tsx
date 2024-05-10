@@ -12,6 +12,8 @@ export const Redemptions = () => {
   const [message, setMessage] = useState<rewardTTS>()
   const [isSpeaking, setIsSpeaking] = useState<boolean>(false)
 
+  const synth = window.speechSynthesis;
+  
   useEffect(() => {    
     document.getElementsByTagName("html")[0]!.className = "redemption"
   })
@@ -23,7 +25,19 @@ export const Redemptions = () => {
         setMessage(message.data)
         // is speaking
         setIsSpeaking(true)
-        handlePlay(message.data.value, message.data.voice, message.data.pitch, message.data.rate, message.data.volume)    
+
+        const u = new SpeechSynthesisUtterance( message.data.text);
+        
+        const voices = window.speechSynthesis.getVoices();
+        const synthVoice = voices.find((v) => v.name ===  message.data.voice);
+        
+        u.voice = synthVoice ? synthVoice : voices[0]
+        u.pitch = parseFloat(( message.data.pitch ||  message.data.pitch !== '') ?  message.data.pitch : "1")
+        u.rate = parseFloat(( message.data.rate ||  message.data.rate !== '') ?  message.data.rate : "1")
+        u.volume = parseFloat(( message.data.volume ||  message.data.volume !== '') ?  message.data.volume : "1")
+
+        handlePlay(synth, u)
+
         setTimeout(() => {
           console.log("Timeout")
           setIsSpeaking(false)          

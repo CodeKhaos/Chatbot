@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom"
 import { useChannel } from "ably/react"
-import { handlePlay } from "@/components/TextToSpeech"
 
 export const RewardRedemptionList = () => {  
   //const queryClient = useQueryClient()
@@ -13,7 +12,7 @@ export const RewardRedemptionList = () => {
     console.log(message.data.type + ' - ' + message.data.value)
     if (message.data.type === 'tts') {
         console.log('Message Received - ', message.data)
-        handlePlay(message.data.value, message.data.voice, message.data.pitch, message.data.rate, message.data.volume)
+       // handlePlay(message.data.value, message.data.voice, message.data.pitch, message.data.rate, message.data.volume)
     }
   });
 

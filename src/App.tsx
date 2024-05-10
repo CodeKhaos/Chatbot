@@ -85,10 +85,10 @@ export const Home = () => {
     if (forHandle === '') return
     navigate('/rewards/' + forHandle)
   }
-  const handleRedemptionSubmit = () => {
-    if (forHandle === '') return
-    navigate('/rewardHandler/' + forHandle)
-  }
+  // const handleRedemptionSubmit = () => {
+  //   if (forHandle === '') return
+  //   navigate('/rewardHandler/' + forHandle)
+  // }
 
   return (
     <div role="homepage">
