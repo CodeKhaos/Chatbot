@@ -82,6 +82,7 @@ export const TextToSpeechReward = ({channel, forHandle}: TextToSpeechRewardProps
                 placeholder='TTS Message'
                 onChange={(e) => setTTSMessage(e.target.value)}
                 as='textarea'
+                max='200'
             />
             <Form.Label>Voice Pitch</Form.Label>
             <Form.Range min={'0.5'} max={'2.0'} step={'0.1'}
