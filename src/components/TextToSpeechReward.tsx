@@ -60,7 +60,7 @@ export const TextToSpeechReward = ({channel, forHandle}: TextToSpeechRewardProps
         u.voice = synthVoice ? synthVoice : voices[0]
         u.pitch = parseFloat(( pitch ||  pitch !== '') ?  pitch : "1")
         u.rate = parseFloat((rate ||  rate !== '') ?  rate : "1")
-        u.volume = 1
+        u.volume = 0.5
 
         handlePlay(synth, u)
       }

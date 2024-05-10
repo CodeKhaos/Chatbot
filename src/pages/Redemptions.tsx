@@ -34,9 +34,9 @@ export const Redemptions = () => {
         u.voice = synthVoice ? synthVoice : voices[0]
         u.pitch = parseFloat(( message.data.pitch ||  message.data.pitch !== '') ?  message.data.pitch : "1")
         u.rate = parseFloat(( message.data.rate ||  message.data.rate !== '') ?  message.data.rate : "1")
-        u.volume = parseFloat(( message.data.volume ||  message.data.volume !== '') ?  message.data.volume : "1")
+        u.volume = parseFloat(( message.data.volume ||  message.data.volume !== '') ?  message.data.volume : ".5")
 
-     //  handlePlay(synth, u)
+        handlePlay(synth, u)
 
         setTimeout(() => {
           console.log("Timeout")
