@@ -36,7 +36,7 @@ export const Redemptions = () => {
         u.rate = parseFloat(( message.data.rate ||  message.data.rate !== '') ?  message.data.rate : "1")
         u.volume = parseFloat(( message.data.volume ||  message.data.volume !== '') ?  message.data.volume : "1")
 
-        handlePlay(synth, u)
+     //  handlePlay(synth, u)
 
         setTimeout(() => {
           console.log("Timeout")
