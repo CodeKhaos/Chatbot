@@ -15,7 +15,7 @@ export const TextToSpeechReward = ({channel, forHandle}: TextToSpeechRewardProps
     const [voice, setVoice] = useState<string>("Microsoft David - English (United States)");
     const [pitch, setPitch] = useState<string>("1");
     const [rate, setRate] = useState<string>("1");
-    const [volume, setVolume] = useState<string>("1");
+    //const [volume, setVolume] = useState<string>("1");
     const { mutate } = useCreateRedemptionMutation()
     const [btnDisabled, setBtnDisabled] = useState<boolean>(false)    
     
@@ -30,7 +30,7 @@ export const TextToSpeechReward = ({channel, forHandle}: TextToSpeechRewardProps
         const reward: CreateRedemptionRequest = {
             userId: '', rewardId: "1",  pointCost: 25, redemptionDate: new Date(), type: 'tts', value: ttsMessage 
         }
-        const rewardTTS =  {...reward, voice: voice, pitch: pitch, rate: rate, volume: volume}
+        const rewardTTS =  {...reward, voice: voice, pitch: pitch, rate: rate, volume: 1}
 
         channel.publish('redemption' + '-' + forHandle, rewardTTS)
         createRedemption(reward)
