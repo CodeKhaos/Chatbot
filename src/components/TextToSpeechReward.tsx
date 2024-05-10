@@ -38,7 +38,7 @@ export const TextToSpeechReward = ({channel, forHandle}: TextToSpeechRewardProps
 
         setTimeout(() => {
             setBtnDisabled(false)
-          }, 10000);
+          }, 20000);
     } 
     
     const createRedemption = (data: CreateRedemptionRequest) => {
