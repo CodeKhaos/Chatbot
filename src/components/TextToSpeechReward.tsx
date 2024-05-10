@@ -90,9 +90,6 @@ export const TextToSpeechReward = ({channel, forHandle}: TextToSpeechRewardProps
                 <Form.Label>Voice Rate</Form.Label>
             <Form.Range min={'0.5'} max={'2.0'} step={'0.1'}
                 onChange={(e) => setRate(e.target.value)}/>
-            <Form.Label>Voice Volume</Form.Label>
-            <Form.Range  min={'0.2'} max={'1.0'} step={'0.1'}
-                onChange={(e) => setVolume(e.target.value)}/>
             <Form.Select aria-label="Set Voice" className="primarySelect"
                 onChange={(e) => voiceChanged(e.target.value)}>
                     {voices && voices.map((voice) => (
