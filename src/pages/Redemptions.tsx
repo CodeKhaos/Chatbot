@@ -34,14 +34,12 @@ export const Redemptions = () => {
         u.voice = synthVoice ? synthVoice : voices[0]
         u.pitch = parseFloat(( message.data.pitch ||  message.data.pitch !== '') ?  message.data.pitch : "1")
         u.rate = parseFloat(( message.data.rate ||  message.data.rate !== '') ?  message.data.rate : "1")
-        u.volume = 0.5
+        u.volume = 0.75
 
         handlePlay(synth, u)
-
         setTimeout(() => {
-          console.log("Timeout")
           setIsSpeaking(false)          
-        }, 20000)
+        }, 10000)
     }
   });
 

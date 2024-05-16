@@ -14,7 +14,9 @@ export const Rewards = () => {
     return (
         <>
             <h1 role='rewardsHeader' className='pageHeader'>Rewards for {params.forHandle}</h1>
-            <TextToSpeechReward channel={channel} forHandle={params.forHandle ? params.forHandle : ''}></TextToSpeechReward>
+            <TextToSpeechReward 
+                channel={channel} 
+                forHandle={params.forHandle ? params.forHandle : ''}/>
         </>
     )
 }
