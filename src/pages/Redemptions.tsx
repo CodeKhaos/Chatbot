@@ -48,6 +48,7 @@ export const Redemptions = () => {
         <>
         {isSpeaking && 
           <div className={'redemptionBackground'}>
+            <h3> From {message!.userId}</h3>
             <h3 className={'redemptionText'}>{message!.value}</h3>
           </div>}
         </>

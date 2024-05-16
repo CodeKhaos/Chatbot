@@ -11,6 +11,11 @@ export type TextToSpeechRewardProps = {
     forHandle: string
 }
 
+const disableRedemptionButton = (synth: SpeechSynthesis, btnDisabled: boolean): boolean => {
+    return (localStorage.getItem('userName') === null || localStorage.getItem('userName') === '') 
+    || (!synth && btnDisabled)
+}
+
 export const TextToSpeechReward = ({channel, forHandle}: TextToSpeechRewardProps) => {
     const [ttsMessage, setTTSMessage] = useState<string>()
     const [voice, setVoice] = useState<string>();
@@ -24,8 +29,9 @@ export const TextToSpeechReward = ({channel, forHandle}: TextToSpeechRewardProps
         console.log("submit")
         if (!ttsMessage) return
         
-        const reward: CreateRedemptionRequest = {
-            userId: '', rewardId: "1",  pointCost: 25, redemptionDate: new Date(), type: 'tts', value: ttsMessage 
+        const userName = localStorage.getItem("userName") 
+        const reward: CreateRedemptionRequest = {            
+            userId: userName ? userName : '', rewardId: "1",  pointCost: 25, redemptionDate: new Date(), type: 'tts', value: ttsMessage 
         }
         const rewardTTS =  {...reward, voice: voice, pitch: pitch, rate: rate, volume: 1}
 
@@ -65,7 +71,7 @@ export const TextToSpeechReward = ({channel, forHandle}: TextToSpeechRewardProps
         const voiceChanged = (newVoice:string) => {       
             const voices = window.speechSynthesis.getVoices();
             const synthVoice = voices.find((v) => v.name === newVoice);
-            console.log(voices)
+   
             setVoice(synthVoice ? synthVoice.name : voices[0].name)    
         }
 
@@ -125,9 +131,11 @@ export const TextToSpeechReward = ({channel, forHandle}: TextToSpeechRewardProps
                 </Row>
                 <Row>
                     <FormGroup as={Col} controlId="voice">
-                        <Button className="primaryButton" role="sendTTSMessage" disabled={!synth && btnDisabled} type='submit'>
+                        
+                        {!localStorage.getItem('userName') && <h3>Login to Redeem TTS</h3>}
+                        <Button className="primaryButton" role="sendTTSMessage" disabled={disableRedemptionButton(synth, btnDisabled)} type='submit'>
                             Redeem TTS {btnDisabled && <Spinner size="sm" /> } 
-                        </Button>
+                        </Button>                        
                         <Button className="primaryButton" role="testTTSMessage" onClick={testTTSMessage}>Test TTS</Button>
                     </FormGroup>
                 </Row>

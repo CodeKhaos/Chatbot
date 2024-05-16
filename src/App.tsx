@@ -31,17 +31,19 @@ export const PagenotFound = () => (
 
   const NavigationHeader = () => {
     const [accessToken, setAccessToken] = useState<string | undefined>()
-    const [youtubeChannel, setChannge] = useState<YoutubeChannel | undefined>()
+    const [youtubeChannel, setYoutubeChannel] = useState<YoutubeChannel | undefined>()
     const { mutate } = useUpdateYoutubeChannelMutation()
 
     const onGoogleLoginSuccess = (tokenResponse: TokenResponse) => {
       if (!tokenResponse.access_token) return;    
-      localStorage.setItem("accessToken", tokenResponse.access_token)
+      localStorage.setItem("accessToken", tokenResponse.access_token)      
+      
       setAccessToken(tokenResponse.access_token)
       mutate(
         {accessToken: tokenResponse.access_token, forHandle: 'GoodKhaos', mine: false},
         { onSuccess: (data) => {
-          setChannge(data)
+          setYoutubeChannel(data)
+          localStorage.setItem("userName", data.snippet.title)
         }
       }
       )
@@ -67,8 +69,8 @@ export const PagenotFound = () => (
             </Nav>
           </Navbar.Collapse>
           <Navbar.Collapse className="justify-content-end">
-            {!youtubeChannel && <Button onClick={() => login()}>Login To Google</Button> }
-            <h4>{youtubeChannel && 'Welcome ' + youtubeChannel.snippet.title + '!'}</h4> 
+            {!localStorage.getItem('userName') && <Button onClick={() => login()}>Login To Google</Button> }
+            <h4>{localStorage.getItem('userName') && 'Welcome ' + localStorage.getItem('userName') + '!'}</h4> 
           </Navbar.Collapse>
         </Container>
       </Navbar>
