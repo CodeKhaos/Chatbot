@@ -43,6 +43,7 @@ export const PagenotFound = () => (
         {accessToken: tokenResponse.access_token, forHandle: 'GoodKhaos', mine: false},
         { onSuccess: (data) => {
           setYoutubeChannel(data)
+          console.log(youtubeChannel)
           localStorage.setItem("userName", data.snippet.title)
         }
       }
